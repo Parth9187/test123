@@ -36,4 +36,4 @@ jobs:
         SEMANTIC_KEY: ${{ secrets.SEMANTIC_KEY }}
         GPT_KEY: ${{ secrets.GPT_KEY }}
       run: |
-        python snowball_samples.py
+        python snowball_samples.py --SEMANTIC_KEY="${SEMANTIC_KEY}" --GPT_KEY="${GPT_KEY}"

@@ -1,12 +1,28 @@
 from vars.internal_ids import get_internal_paper_id, get_internal_author_id, increment_internal_author_id, increment_internal_paper_id
 
+import argparse
 import os
+
+parser = argparse.ArgumentParser(description="Load API keys as environment variables.")
+parser.add_argument('--SEMANTIC_KEY', type=str, help='Semantic API key')
+parser.add_argument('--GPT_KEY', type=str, help='GPT API key')
+
+args = parser.parse_args()
+
+if args.SEMANTIC_KEY:
+    os.environ['SEMANTIC_KEY'] = args.SEMANTIC_KEY
+    print("SEMANTIC_KEY has been set.")
+else:
+    raise ValueError("SEMANTIC_KEY not provided!")
+
+if args.GPT_KEY:
+    os.environ['GPT_KEY'] = args.GPT_KEY
+    print("GPT_KEY has been set.")
+else:
+    raise ValueError("GPT_KEY not provided!")
 
 SEMANTIC_KEY = os.getenv('SEMANTIC_KEY')
 GPT_KEY = os.getenv('GPT_KEY')
-
-print(SEMANTIC_KEY)
-print(GPT_KEY)
 
 from data_utils import read_parquet_file, write_parquet_file
 
