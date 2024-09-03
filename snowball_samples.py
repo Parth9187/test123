@@ -5,6 +5,9 @@ import os
 SEMANTIC_KEY = os.getenv('SEMANTIC_KEY')
 GPT_KEY = os.getenv('GPT_KEY')
 
+print(SEMANTIC_KEY)
+print(GPT_KEY)
+
 from data_utils import read_parquet_file, write_parquet_file
 
 import requests
