@@ -53,7 +53,7 @@ def get_author_info_ss(api_key, author_id):
 
     fields = ",".join(author_fields + paper_fields)
 
-    time.sleep(1)
+    time.sleep(5)
     r = requests.get(
         query,
         params = {"fields": f"{fields}"},
@@ -68,7 +68,7 @@ def get_author_info_ss(api_key, author_id):
     author_info = {
         "author_id_semanticscholar": r["authorId"] if "authorId" in r else None,
         "ss_name": r["name"] if "name" in r else None,
-        "DBLP_name": r["externalIds"]["DBLP"] if 'DBLP' in r['externalIds'] else None,
+        "DBLP_name": r["externalIds"]["DBLP"] if 'DBLP' in r['externalIds'] and 'externalIds' in r else None,
         "citations": r["citationCount"] if "citationCount" in r else None,
         "h_index": r["hIndex"] if "hIndex" in r else None
     }
@@ -77,7 +77,7 @@ def get_author_info_ss(api_key, author_id):
     fields = ["externalIds", "authors"]
     fields = ",".join(fields)
 
-    time.sleep(1)
+    time.sleep(5)
     r_paper = requests.get(
         papers_endpoint_query,
         params = {"fields": f"{fields}"},
@@ -95,7 +95,7 @@ def get_author_info_ss(api_key, author_id):
     for paper in r_paper['data']:
         paper = {
             "semantic_scholar_id": paper["paperId"] if "paperId" in paper else None,
-            'doi': paper['externalIds']['DOI'] if 'DOI' in paper['externalIds'] else None,
+            'doi': paper['externalIds']['DOI'] if 'DOI' in paper['externalIds'] and 'externalIds' in paper else None,
             'authors': [{'author_id': author['authorId'] if "authorId" in author else None, 
                          'name': author['name'] if "name" in author else None} for author in paper['authors']]
         }
@@ -118,7 +118,7 @@ def get_paper_ssinfo(api_key, paper_id):
     fields = identifying_fields + paper_fields + reference_fields + author_fields
     fields = ",".join(fields)
 
-    time.sleep(1)
+    time.sleep(5)
     r = requests.get(
         query,
         params = {"fields": f"{fields}"},
@@ -133,7 +133,7 @@ def get_paper_ssinfo(api_key, paper_id):
     return {
         'paper_id_semanticscholar': r['paperId'] if "paperId" in r else None,
         'external_ids': r['externalIds'] if "externalIds" in r else None,
-        'doi': r['externalIds']['DOI'] if 'DOI' in r['externalIds'] else None,
+        'doi': r['externalIds']['DOI'] if 'DOI' in r['externalIds'] and 'externalIds' in r else None,
         'title': r['title'] if "title" in r else None,            
         'citations': r['citationCount'] if "citationCount" in r else None,
         'open_access_url': r['openAccessPdf']['url'] if r['openAccessPdf'] else None,
