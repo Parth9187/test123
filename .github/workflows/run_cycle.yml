@@ -37,3 +37,14 @@ jobs:
         GPT_KEY: ${{ secrets.GPT_KEY }}
       run: |
         python snowball_samples.py --SEMANTIC_KEY="${SEMANTIC_KEY}" --GPT_KEY="${GPT_KEY}"
+
+    - name: Commit changes
+      run: |
+        git add .
+        git commit -m "Cycle Data Update"   
+
+    - name: Push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push origin main
