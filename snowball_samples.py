@@ -1,5 +1,9 @@
 from vars.internal_ids import get_internal_paper_id, get_internal_author_id, increment_internal_author_id, increment_internal_paper_id
-from vars.api_keys import SEMANTIC_KEY, GPT_KEY
+
+import os
+
+SEMANTIC_KEY = os.getenv('SEMANTIC_KEY')
+GPT_KEY = os.getenv('GPT_KEY')
 
 from data_utils import read_parquet_file, write_parquet_file
 
