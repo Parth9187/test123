@@ -40,6 +40,8 @@ jobs:
 
     - name: Commit changes
       run: |
+        git config --global user.email "parthg9187@gmail.com"
+        git config --global user.name "Parth Goel"
         git add .
         git commit -m "Cycle Data Update"   
 
